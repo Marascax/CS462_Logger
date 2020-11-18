@@ -10,7 +10,7 @@
 <xsl:template match="page">
 	<head>
 		<h1 style="padding-left:25px">
-			<xsl:apply-templates select="name"/>
+			<xsl:apply-templates select="user"/>
 		</h1>
 	</head>
 	<div>
@@ -45,7 +45,7 @@
 	</div>
 </xsl:template>
 
-<xsl:template match="name">
+<xsl:template match="user">
 	<xsl:value-of select="text()"/>
 </xsl:template>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<?xml-stylesheet type="text/xsl" href="page_xsl_template.xsl"?>
+<?xml-stylesheet type="text/xsl" href="page_stylesheet.xsl"?>
 <page>
-	<name></name>
+	<user></user>
 	<backgroundColor></backgroundColor>
 	<log></log>
 	<logInfo></logInfo>
