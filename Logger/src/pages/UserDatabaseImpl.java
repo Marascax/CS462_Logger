@@ -12,7 +12,7 @@ public class UserDatabaseImpl extends UnicastRemoteObject
 	
 	private Hashtable<String, Page> db;
 
-	protected UserDatabaseImpl() throws RemoteException 
+	public UserDatabaseImpl() throws RemoteException 
 	{
 		db = new Hashtable<>();
 	}
