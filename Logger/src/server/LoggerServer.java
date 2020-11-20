@@ -1,19 +1,20 @@
 package server;
 
 
+import java.nio.file.Paths;
 import java.rmi.Naming;
 
 import pages.UserDatabaseImpl;
 
 public class LoggerServer 
 {
-	private static final String SERVERNAME = "//localhost:1109/";
+	private static final String SERVERNAME = "//localhost:1099/";
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		UserDatabaseImpl db;
-		
-		System.setProperty("java.security.policy", "logger.policy");        
+		String policyPath = Paths.get(LoggerServer.class.getResource("logger.policy").toURI()).toString();
+		System.setProperty("java.security.policy", policyPath);        
 	    System.setSecurityManager(new SecurityManager());
 	    
 	    try
