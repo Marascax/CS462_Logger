@@ -65,9 +65,9 @@ public class Page implements Serializable
 				+ "<?xml-stylesheet type=\"text/xsl\" href=\"page_stylesheet.xsl\"?>"
 				+ "<page>"
 				+ "<name>" + user + "</name>"
-				+ "<backgroundColor>" + backgroundColor + "<backgroundColor>"
+				+ "<backgroundColor>" + backgroundColor + "</backgroundColor>"
 				+ "<log>" + log + "</log>"
-				+ "<logInfo>" + logInfo + "</logFile>"
+				+ "<logInfo>" + logInfo + "</logInfo>"
 				+ "</page>";
 		
 	}

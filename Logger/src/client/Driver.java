@@ -66,6 +66,7 @@ public class Driver
 						System.out.println("Enter New Background Color (#XXXXXX):\n");
 						input = in.readLine();
 						PageController.updateBackgroundColor(user, input, currUser);
+						PageController.updateUserHtml(user);
 					}
 					
 					break;
@@ -87,6 +88,7 @@ public class Driver
 						System.out.println("Enter New User Log:\n");
 						input = in.readLine();
 						PageController.updateLog(user, input, currUser);
+						PageController.updateUserHtml(user);
 					}
 					
 					break;
