@@ -32,12 +32,9 @@ public class Driver
 			PageController.createUserPage(currUser);
 		}
 		
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
-		
 		String options = "Menu:\n"
 				+ "1. Set Background Color of User Page\n"
-				+ "2. Set Log of User Page"
+				+ "2. Set Log of User Page\n"
 				+ "3. Exit Program";
 		
 		String input, user;
@@ -97,8 +94,6 @@ public class Driver
 				case 3:
 					System.out.println("Exiting program...");
 					Thread.sleep(1000);
-					System.out.print("\033[H\033[2J");
-					System.out.flush();
 					keepRunning = false;
 					break;
 				default:
@@ -110,8 +105,8 @@ public class Driver
 			{
 				System.out.println("Press [Enter] to Continue...");
 				in.readLine();
-				System.out.print("\033[H\033[2J");
-				System.out.flush();
+//				System.out.print("\033[H\033[2J");
+//				System.out.flush();
 			}
 		}
 		

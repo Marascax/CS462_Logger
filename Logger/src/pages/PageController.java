@@ -1,17 +1,23 @@
 package pages;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import java.io.*;
 
 public class PageController 
 {
 	private static UserDatabase db;
+	private static FileInputStream fis;
+	private static ObjectInputStream ois;
+	private static FileOutputStream fos;
+	private static ObjectOutputStream oos;
 	
 	public static void initializeUserDatabase() throws Exception
 	{
 		db = (UserDatabase)Naming.lookup("rmi://localhost:1099/UserDatabase");
+		
+		// get the directory with the already made user pages, add them to user database
+		File pagesDir = new File(".\\user_pages").getCanonicalFile();
+		for (File userFile : pagesDir.listFiles()) db.add(new Page(userFile.getName()));
 	}
 	
 	public static boolean checkForUser(String name) throws Exception
@@ -23,6 +29,12 @@ public class PageController
 	{
 		Page page = new Page(name);
 		db.add(page);
+		
+		// write user page to directory with other user pages
+		fos = new FileOutputStream(new File(".\\user_pages\\" + name).getCanonicalFile());
+		oos = new ObjectOutputStream(fos);
+		oos.writeObject(page);
+		oos.close();
 	}
 	
 	public static void updateBackgroundColor(String name, String color, String invoker) throws Exception
