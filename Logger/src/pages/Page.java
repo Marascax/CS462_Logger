@@ -10,7 +10,7 @@ public class Page implements Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String user, backgroundColor, log, logInfo;
+	private String user, backgroundColor, log, logInfo, xmlString;
 	
 	public Page(String user)
 	{
@@ -18,6 +18,7 @@ public class Page implements Serializable
 		backgroundColor = "#FFFFFF";
 		log = "";
 		logInfo = "";
+		updateXML();
 	}
 	
 	public String getUser()
@@ -40,20 +41,27 @@ public class Page implements Serializable
 		return logInfo;
 	}
 	
+	public String getXML()
+	{
+		return xmlString;
+	}
+	
 	public void setBackgroundColor(String hexColor)
 	{
 		backgroundColor = hexColor;
+		updateXML();
 	}
 	
 	public void setLog(String newLog, String newLogInfo)
 	{
 		log = newLog;
 		logInfo = newLogInfo;
+		updateXML();
 	}
 	
-	public String toXML()
+	private void updateXML()
 	{
-		String s = "<?xml version=\"1.0\"?>"
+		xmlString = "<?xml version=\"1.0\"?>"
 				+ "<?xml-stylesheet type=\"text/xsl\" href=\"page_stylesheet.xsl\"?>"
 				+ "<page>"
 				+ "<name>" + user + "</name>"
@@ -62,7 +70,6 @@ public class Page implements Serializable
 				+ "<logInfo>" + logInfo + "</logFile>"
 				+ "</page>";
 		
-		return s;
 	}
 
 }

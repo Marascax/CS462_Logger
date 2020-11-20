@@ -1,6 +1,10 @@
 package pages;
 
 import java.rmi.Naming;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import java.io.*;
 
 public class PageController 
@@ -15,9 +19,19 @@ public class PageController
 	{
 		db = (UserDatabase)Naming.lookup("rmi://localhost:1099/UserDatabase");
 		
+		// create page xml parser
+		SAXParserFactory fac = SAXParserFactory.newInstance();
+		SAXParser parser = fac.newSAXParser();
+		UserPageHandler handler = new UserPageHandler("page");
+		
 		// get the directory with the already made user pages, add them to user database
 		File pagesDir = new File(".\\user_pages").getCanonicalFile();
-		for (File userFile : pagesDir.listFiles()) db.add(new Page(userFile.getName()));
+		for (File userFile : pagesDir.listFiles()) 
+		{
+			parser.parse(userFile, handler);
+			Page userPage = handler.getUserPage();
+			if (userPage != null) db.add(new Page(userFile.getName()));
+		}
 	}
 	
 	public static boolean checkForUser(String name) throws Exception
@@ -50,6 +64,11 @@ public class PageController
 		Page userPage = db.get(name);
 		
 		// update user page's log with new log and user changing the log
-		userPage.setLog(log, invoker);
+		userPage.setLog(log, "Logged By: " + invoker);
+	}
+	
+	public static void updateUserHtml(String name) throws Exception
+	{
+		
 	}
 }

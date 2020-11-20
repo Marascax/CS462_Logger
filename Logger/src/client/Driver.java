@@ -56,9 +56,9 @@ public class Driver
 					input = in.readLine();
 					
 					// check for other user
-					if (!PageController.checkForUser(input))
+					if (!PageController.checkForUser(input) || input.equals(currUser))
 					{
-						System.out.println("Other user not found");
+						System.out.println("Invalid User: Other user not found or current user");
 						break;
 					} else
 					{
@@ -77,9 +77,9 @@ public class Driver
 					input = in.readLine();
 					
 					// check for other user
-					if (!PageController.checkForUser(input))
+					if (!PageController.checkForUser(input) || input.equals(currUser))
 					{
-						System.out.println("Other user not found");
+						System.out.println("Invalid User: Other user not found or current user");
 						break;
 					} else
 					{
