@@ -1,21 +1,25 @@
 package client;
 
 import java.io.*;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-
-import pages.Page;
 import pages.PageController;
-import pages.UserDatabase;
 
+/**
+ * Driver for program when used by user client.
+ * @author Alex Marasco, Joseph Stefanik
+ *
+ */
 public class Driver 
 {
+	private static final String INVALID_USER_ERROR = 
+			"Invalid User: Other user not found or current user\n";
+	
 	private static boolean keepRunning;
 	private static String currUser;
 	
-	public static void main(String[] args) throws Exception
+	public static void main(final String[] args) throws Exception
 	{
+		System.setProperty("java.security.policy", "logger.policy"); 
+		
 		keepRunning = true;
 		
 		// make sure page controller gets the database from the RMI registry
@@ -23,7 +27,7 @@ public class Driver
 		
 		// get the name of the current user
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Please Enter Name of Current User:");
+		System.out.println("Please Enter Name of Current User:\n");
 		currUser = in.readLine();
 		
 		// check if user has a page, if not, create one for user
@@ -35,7 +39,7 @@ public class Driver
 		String options = "Menu:\n"
 				+ "1. Set Background Color of User Page\n"
 				+ "2. Set Log of User Page\n"
-				+ "3. Exit Program";
+				+ "3. Exit Program\n";
 		
 		String input, user;
 		int selection = -1;
@@ -50,37 +54,42 @@ public class Driver
 			{
 				// background color
 				case 1:
-					System.out.println(">[Set Background Color]");
+					System.out.println(">[Set Background Color]\n");
 					
-					System.out.println("Enter Name of Other User:\n");
+					System.out.println("User For Background Color Change:\n");
 					input = in.readLine();
 					
 					// check for other user
-					if (!PageController.checkForUser(input) || input.equals(currUser))
+					if (!PageController.checkForUser(input) 
+							|| input.equals(currUser))
 					{
-						System.out.println("Invalid User: Other user not found or current user");
+						System.out.println(INVALID_USER_ERROR);
 						break;
 					} else
 					{
 						user = input;
-						System.out.println("Enter New Background Color (#XXXXXX):\n");
+						System.out.println(
+								"Enter New Background Color"
+								+ " (#XXXXXX):\n");
 						input = in.readLine();
-						PageController.updateBackgroundColor(user, input, currUser);
+						PageController.updateBackgroundColor(user, 
+								input, currUser);
 						PageController.updateUserHtml(user);
 					}
 					
 					break;
 				// log
 				case 2:
-					System.out.println(">[Set Log]");
+					System.out.println(">[Set Log]\n");
 					
-					System.out.println("Enter Name of Other User:\n");
+					System.out.println("User For Log Change:\n");
 					input = in.readLine();
 					
 					// check for other user
-					if (!PageController.checkForUser(input) || input.equals(currUser))
+					if (!PageController.checkForUser(input) 
+							|| input.equals(currUser))
 					{
-						System.out.println("Invalid User: Other user not found or current user");
+						System.out.println(INVALID_USER_ERROR);
 						break;
 					} else
 					{
@@ -94,12 +103,14 @@ public class Driver
 					break;
 				// exit
 				case 3:
-					System.out.println("Exiting program...");
+					System.out.println("Exiting program...\n");
 					Thread.sleep(1000);
 					keepRunning = false;
 					break;
 				default:
-					System.out.println("Cannot process selection, please try again...");
+					System.out.println(
+							"Cannot process selection,"
+							+ " please try again...\n");
 					break;
 			}
 			
@@ -112,9 +123,6 @@ public class Driver
 			}
 		}
 		
-		
-		
-		System.setProperty("java.security.policy", "logger.policy");  
 	}
 
 }

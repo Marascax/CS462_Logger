@@ -3,7 +3,11 @@ package pages;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Hashtable;
-
+/**
+ * Implementation of user database remote object.
+ * @author Alex Marasco, Joseph Stefanik
+ *
+ */
 public class UserDatabaseImpl extends UnicastRemoteObject
 							  implements UserDatabase 
 {
@@ -18,19 +22,19 @@ public class UserDatabaseImpl extends UnicastRemoteObject
 	}
 
 	@Override
-	public void add(Page page) throws RemoteException 
+	public void add(final Page page) throws RemoteException 
 	{
 		db.put(page.getUser(), page);
 	}
 
 	@Override
-	public Page get(String user) throws RemoteException 
+	public Page get(final String user) throws RemoteException 
 	{
 		return (Page)db.get(user);
 	}
 
 	@Override
-	public void remove(String user) throws RemoteException 
+	public void remove(final String user) throws RemoteException 
 	{
 		db.remove(user);
 	}
