@@ -1,6 +1,9 @@
 package pages;
 
 import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -33,7 +36,9 @@ public class PageController
 	 */
 	public static void initializeUserDatabase() throws Exception
 	{
-		db = (UserDatabase)Naming.lookup("rmi://localhost:1099/UserDatabase");
+		Registry reg = LocateRegistry.getRegistry(1099);
+		db = (UserDatabase) reg.lookup("//localhost:1099/UserDatabase");
+//		db = (UserDatabase)Naming.lookup("rmi://localhost:1099/UserDatabase");
 		
 		// get the directory with the already made user pages, add them to user database
 		File pagesDir = new File(".\\user_pages").getCanonicalFile();

@@ -1,4 +1,5 @@
-C:\Users\alexm\Documents\CS462\CS462_Logger\Logger\src\client\Driver.java
+C:\Users\alexm\Documents\CS462\CS462_Logger\Logger\src\client\ClientDriver.java
+C:\Users\alexm\Documents\CS462\CS462_Logger\Logger\src\main\MainDriver.java
 C:\Users\alexm\Documents\CS462\CS462_Logger\Logger\src\pages\Page.java
 C:\Users\alexm\Documents\CS462\CS462_Logger\Logger\src\pages\PageController.java
 C:\Users\alexm\Documents\CS462\CS462_Logger\Logger\src\pages\UserDatabase.java
