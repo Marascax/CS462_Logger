@@ -69,15 +69,10 @@ public class LoggerServer
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			
-//			ServerRunner runner = new ServerRunner();
-//			runner.start();
-			
 			System.out.println("Press [Enter] to stop the server...");
 
 			// Block until the user presses [Enter]
 			in.readLine();
-			
-//			runner.stop();
 			
 			UnicastRemoteObject.unexportObject(registry, true);
 			
@@ -102,100 +97,5 @@ public class LoggerServer
 		
 	}
 	
-	static class ServerRunner implements Runnable
-	{
-		private ServerSocket serverSocket;
-		private Socket socket;
-		private String host;
-		private int port;
-		
-		private BufferedReader br;		// read file path strings
-		private FileInputStream fis;	// read file bytes
-		private InputStream is;			// read from sockets
-		
-		private FileOutputStream fos;	// write to files
-		
-		private Thread thread;
-		private volatile boolean keepRunning;
-		
-		ServerRunner()
-		{
-			host = "stu.cs.jmu.edu";
-			port = 5026;
-			try 
-			{
-				serverSocket = new ServerSocket(port);
-				serverSocket.setSoTimeout(5000);
-			} catch (IOException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
-		
-		public void start()
-		{
-			if (thread == null)
-			{
-				thread = new Thread(this);
-				keepRunning = true;
-				thread.start();
-			}
-		}
-
-		@Override
-		public void run() 
-		{
-			while(keepRunning)
-			{
-				try
-				{
-					// accept connection
-					socket = serverSocket.accept();
-					
-					// get socket input stream
-					is = socket.getInputStream();
-					
-					// create input buffered reader for file path
-					br = new BufferedReader(
-							new InputStreamReader(is));
-					
-					// read in file path string
-					String filePath = br.readLine();
-					
-					// create out stream to file path 
-					fos = new FileOutputStream(filePath);
-					
-					// read all the bytes of file
-					byte[] fileBytes = is.readAllBytes();
-					
-					// write bytes to file
-					fos.write(fileBytes);
-					fos.close();
-					
-					// close the connection
-					socket.close();
-					
-					
-				} catch (SocketTimeoutException stoe)
-				{
-					// no client waiting to connect, keep running in case someone does
-				} catch (IOException ioe)
-				{
-					// socket forgot how to socket, try again
-				} 
-			}
-			
-		}
-		
-		public void stop()
-		{
-			keepRunning = false;
-			thread.interrupt();
-			thread = null;
-		}
-		
-	}
 	
 }
